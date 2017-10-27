@@ -1,0 +1,114 @@
+
+      Programarea Calculatoarelor: Tema 3
+
+
+   What is it?
+   -----------
+
+      This badass C program is designed to solve the following homework:
+   http://ocw.cs.pub.ro/courses/programare/teme_2016/tema2_2016_cbd_123123abcdabcd
+
+
+   Author
+   ------
+
+      Student Teodor-Constantin POPESCU, group 313CB
+      Contact: teodor.popescu0710@stud.acs.upb.ro
+
+
+   How it works?
+   -------------
+
+      This program solves the homework using a small home-brewed bitmap library.
+   The features of this library are:
+      1. Reading and writing files from a subset of bmp files (bit_count 24,
+   RGB pixels using one byte per color, no planes, no compression, no printing).
+   This algorithms are implemented in a straight-forward manner, using dynamic
+   memory allocation, reading/writing binary files and doing checks for all
+   possible errors that may occur.
+      2. Applying desaturation and filters to arrays of pixels (nothing fancy).
+      3. Compressing arrays of pixels with the basic lossy compression algorithm
+   described at the link above. This is the only non-trivial task: The
+   implementation is done using an iterative fill algorithm (a depth-first
+   search algorithm that uses a stack to store the locations that ought to be
+   visited. This approach is preferred, instead of the recursive solution, for
+   efficiency reasons and to make sure the call-stack is not overflown by some
+   dull looking pictures: 2000x2000 picture full of red for example :/ This is
+   the only reason why stack.c and stack.h exists).
+      4. Reading and writing compressed files. The compressed files store only 
+   the boundaries of the vintage-looking bitmaps. This algorithms are trivial
+   and doesn't require any further explanation: the code should easily describe
+   itself.
+      "main.c" uses the "bmplib.o" library with all of its bugs/features with
+   the sole purpose of getting all the holy points for this last homework
+      Note: the program uses custom made struct's for File Header and Info
+   Header. There isn't any important reason for this other than boredom,
+   consistency of language (no upper letters for the members of the struct's)
+   and, maybe, portability (using uintXX_t guarantees the size of data types is
+   the one expected).
+      Note2: there are no leaks; checked with valgrind for all tests ;) And yes,
+   I like to brag a lot.
+
+   Requirements
+   ------------
+
+      GNU/GCC installed, with the GNU99 standard available.
+
+
+   Installation and use
+   --------------------
+
+      The program can be build using the "make" utility:
+   - "make build" to compile and link the program
+   - "make run" to run the program.
+   - "make clean" to clean the working directory
+      The program reads an input file stored at the location "input.txt" in
+   his directory. This ASCII file is of the form:
+   <name_image.bmp>
+   <threshold>
+   <name_compressed_image.bin>
+       For <name_image.bmp> the program outputs one black and white image, three
+   filtered images and the image compressed with <threshold>. For
+   <name_compressed_image.bin> 
+
+      Hooray, X-Mass time!!!
+
+                     _,.._                         __
+                   ,'     '.                      /  `.
+                  /        ,\                     |    \
+                  |;       ;;''-------.._         ;     \
+                  \;;     ,;' _.-'       `.     .-.\     ;
+                   ';;,,-''``''-._         \    '  \\    |
+                       /          `'-._     |    \  '    ;
+                       |               `.   |.-.  \     ;  _
+                       \_;,.._           ',/ |  |  |   /,'` `\
+                   _,,_/` / .'-.          `,\  \  ;  ,'      |
+                 ,-'  ,--'` |   o`-.        ;;|  `-' ;  .-    |
+               ;`    /      '.__  O `'.     _/       | /`    /
+              /      |_,--._,'  `.   | `.;/'  `'-. _ ;.-._,.'
+              /    _,'      |    |'-'  / |   .--.,' '\o  )_
+            .-;   `-..._     `-.-'     | \      _| O .'-'` `.
+          /`  |         '-'7     \  |  |  |'--'` /'-'.--.    `.
+        .| | <;            \      :-\  |  | ___ /    '._'     ;
+       / '-\__)\            '.    ;__,/   ;`   | .-.          |
+    ,.--.,  /   `.            \  /        |'--.\  |           /'-.
+   /'     `;`     `,           '/        /'--.  `-`.         / _  \
+   \,,-.   ;.       '-.._              ,'     `;    `-.___.-'`/'   |
+   /    `-,'.'.     /     `'-.__   _,-'    .--'/             |     /
+  /    ,  \  '.` f\/     /      `''`     /`   /              `.__.'\
+ |     ;  |.   `/ .`'-._;             __.L   ;                  \  ;
+ \    ,'`-' `._/ / `'-. |._____....--'_,-7\ /                   |   \
+  `''` |;,     `-.`'-.| |__.....--'''`_,'`|;                    \_|  |
+        \;,       `'-.__|__.,,__,,.."'`   ;|                      ;`-'
+         `:_             `'`              / \                     /
+            `._                    ,.__.-'   `._             mx .'
+           .-,|`-...________.,---'`|_           `-....____..--'`
+  ._       |   `.     ,-|     _,,,-' `.             \   |  /
+    '-..   .-._, `''"/   `---''       |              `. | ;        _
+        _,'   \;`-._ \_      _,-'`-.-'               _| | |_   .--'
+     .'`           `'"`|"`"`-;/     `' -. -..__   ,-' ` |   `'. _
+..--'\_       _,-'\___'    ,             |     ' / ,'  ,'.  `._) '-..
+      ' `"'''`         '---'`-..._____.-'        '-'--'   `'-' 
+
+   (stealing ASCII art because why not xD)
+
